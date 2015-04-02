@@ -1,12 +1,11 @@
 {
   "name": "language-cfengine3",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Syntax highlighting for CFEngine3.",
   "repository": "https://github.com/Elemag/language-cfengine3",
   "license": "GPLv3",
   "engines": {
     "atom": ">=0.174.0 <2.0.0"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
