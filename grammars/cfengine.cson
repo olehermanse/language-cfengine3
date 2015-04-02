@@ -1,0 +1,1624 @@
+bundleUUID: "511ffa1d-e72d-4074-a299-a8a648e82ec3"
+comment: '''
+  
+      todo:
+          list comprehension / generator comprehension scope.
+  
+      
+'''
+fileTypes: [
+  "cf"
+  "cf3"
+]
+firstLineMatch: "^#!/.*\\bcfengine[0-9.-]*\\b"
+foldingStartMarker: "^\\s*(body|bundle)\\s*([.a-zA-Z0-9_ <]+)\\s*(\\((.*)\\))?\\s*:|\\{\\s*$|\\(\\s*$|\\[\\s*$|^\\s*\"\"\"(?=.)(?!.*\"\"\")"
+foldingStopMarker: "^\\s*$|^\\s*\\}|^\\s*\\]|^\\s*\\)|^\\s*\"\"\"\\s*$"
+name: "CFEngine"
+patterns: [
+  {
+    begin: "^\\s*(body|bundle)\\s+(\\S+\\s*)([a-zA-Z_][a-zA-Z_0-9]*)"
+    beginCaptures:
+      "0":
+        name: "keyword.definition.function.begin.cfengine"
+      "1":
+        name: "constant.language.cfengine"
+      "2":
+        name: "source.cfengine"
+      "3":
+        name: "entity.name.function.cfengine"
+    end: "(?:(?:\\((.+?)\\))|\\{)"
+    endCaptures:
+      "0":
+        name: "source.cfengine"
+      "1":
+        name: "entity.name.variable.cfengine"
+    patterns: [
+      {
+        include: "#embedded_comment"
+      }
+    ]
+  }
+  {
+    captures:
+      "1":
+        name: "punctuation.definition.comment.cfengine"
+    match: "(#).*$\\n?"
+    name: "comment.line.number-sign.cfengine"
+  }
+  {
+    match: "\\b(?i:(0x\\h*)L)"
+    name: "constant.numeric.integer.long.hexadecimal.cfengine"
+  }
+  {
+    match: "\\b(?i:(0x\\h*))"
+    name: "constant.numeric.integer.hexadecimal.cfengine"
+  }
+  {
+    match: "\\b(?i:(0[0-7]+)L)"
+    name: "constant.numeric.integer.long.octal.cfengine"
+  }
+  {
+    match: "\\b(0[0-7]+)"
+    name: "constant.numeric.integer.octal.cfengine"
+  }
+  {
+    match: "\\b(?i:(((\\d+(\\.(?=[^a-zA-Z_])\\d*)?|(?<=[^0-9a-zA-Z_])\\.\\d+)(e[\\-\\+]?\\d+)?))J)"
+    name: "constant.numeric.complex.cfengine"
+  }
+  {
+    match: "\\b(?i:(\\d+\\.\\d*(e[\\-\\+]?\\d+)?))(?=[^a-zA-Z_])"
+    name: "constant.numeric.float.cfengine"
+  }
+  {
+    match: "(?<=[^0-9a-zA-Z_])(?i:(\\.\\d+(e[\\-\\+]?\\d+)?))"
+    name: "constant.numeric.float.cfengine"
+  }
+  {
+    match: "\\b(?i:(\\d+e[\\-\\+]?\\d+))"
+    name: "constant.numeric.float.cfengine"
+  }
+  {
+    match: "\\b(?i:([1-9]+[0-9]*|0)L)"
+    name: "constant.numeric.integer.long.decimal.cfengine"
+  }
+  {
+    match: "\\b([1-9]+[0-9]*|0)"
+    name: "constant.numeric.integer.decimal.cfengine"
+  }
+  {
+    captures:
+      "1":
+        name: "storage.modifier.global.cfengine"
+    match: "\\b(global)\\b"
+  }
+  {
+    captures:
+      "1":
+        name: "keyword.control.import.cfengine"
+      "2":
+        name: "keyword.control.import.from.cfengine"
+    match: "\\b(?:(import)|(body)|(from))\\b"
+  }
+  {
+    comment: "keywords that delimit flow blocks or alter flow from within a block"
+    match: "\\b([().&!|:a-zA-Z_0-9_]+)\\:\\:[\\s+|\\n]"
+    name: "keyword.control.flow.cfengine"
+  }
+  {
+    comment: "keyword operators that evaluate to True or False"
+    match: "\\b(and|in|is|not|or)\\b"
+    name: "keyword.operator.logical.cfengine"
+  }
+  {
+    captures:
+      "1":
+        name: "keyword.other.cfengine"
+    comment: "keywords that haven't fit into other groups (yet)."
+    match: "\\b(as|assert|del|exec|print)\\b"
+  }
+  {
+    match: "<>"
+    name: "invalid.deprecated.operator.cfengine"
+  }
+  {
+    match: "<\\=|>\\=|\\=\\=|<|>|\\!\\="
+    name: "keyword.operator.comparison.cfengine"
+  }
+  {
+    match: "\\+\\=|-\\=|\\*\\=|/\\=|//\\=|%\\=|&\\=|\\|\\=|\\^\\=|>>\\=|<<\\=|\\*\\*\\="
+    name: "keyword.operator.assignment.augmented.cfengine"
+  }
+  {
+    match: "\\+|\\-|\\*|\\*\\*|/|//|%|<<|>>|&|\\||\\^|~"
+    name: "keyword.operator.arithmetic.cfengine"
+  }
+  {
+    match: "\\="
+    name: "keyword.operator.assignment.cfengine"
+  }
+  {
+    begin: "^\\s*(class)\\s+(?=[a-zA-Z_][a-zA-Z_0-9]*\\s*\\:)"
+    beginCaptures:
+      "1":
+        name: "storage.type.class.cfengine"
+    contentName: "entity.name.type.class.cfengine"
+    end: "\\s*(:)"
+    endCaptures:
+      "1":
+        name: "punctuation.section.class.begin.cfengine"
+    name: "meta.class.old-style.cfengine"
+    patterns: [
+      {
+        include: "#entity_name_class"
+      }
+    ]
+  }
+  {
+    "/[^:#]\\+::\\s*$/": "beginCaptures"
+    "[object Object]": "name"
+    "(\\))\\s*(?:(\\:)|(.*$\\n?))": "endCaptures"
+    "meta.class.cfengine": "patterns"
+  }
+  {
+    begin: "^\\s*(class)\\s+(?=[a-zA-Z_][a-zA-Z_0-9])"
+    beginCaptures:
+      "1":
+        name: "storage.type.class.cfengine"
+    end: "(\\()|\\s*($\\n?|#.*$\\n?)"
+    endCaptures:
+      "1":
+        name: "punctuation.definition.inheritance.begin.cfengine"
+      "2":
+        name: "invalid.illegal.missing-inheritance.cfengine"
+    name: "meta.class.cfengine"
+    patterns: [
+      {
+        begin: "(?=[A-Za-z_][A-Za-z0-9_]*)"
+        contentName: "entity.name.type.class.cfengine"
+        end: "(?![A-Za-z0-9_])"
+        patterns: [
+          {
+            include: "#entity_name_function"
+          }
+        ]
+      }
+    ]
+  }
+  {
+    begin: "^\\s*(def)\\s+(?=[A-Za-z_][A-Za-z0-9_]*\\s*\\()"
+    beginCaptures:
+      "1":
+        name: "storage.type.function.cfengine"
+    end: "(\\))\\s*(?:(\\:)|(.*$\\n?))"
+    endCaptures:
+      "1":
+        name: "punctuation.definition.parameters.end.cfengine"
+      "2":
+        name: "punctuation.section.function.begin.cfengine"
+      "3":
+        name: "invalid.illegal.missing-section-begin.cfengine"
+    name: "meta.function.cfengine"
+    patterns: [
+      {
+        begin: "(?=[A-Za-z_][A-Za-z0-9_]*)"
+        contentName: "entity.name.function.cfengine"
+        end: "(?![A-Za-z0-9_])"
+        patterns: [
+          {
+            include: "#entity_name_function"
+          }
+        ]
+      }
+      {
+        begin: "(\\()"
+        beginCaptures:
+          "1":
+            name: "punctuation.definition.parameters.begin.cfengine"
+        contentName: "meta.function.parameters.cfengine"
+        end: "(?=\\)\\s*\\:)"
+        patterns: [
+          {
+            include: "#keyword_arguments"
+          }
+          {
+            captures:
+              "1":
+                name: "variable.parameter.function.cfengine"
+              "2":
+                name: "punctuation.separator.parameters.cfengine"
+            match: "\\b([a-zA-Z_][a-zA-Z_0-9]*)\\s*(?:(,)|(?=[\\n\\)]))"
+          }
+        ]
+      }
+    ]
+  }
+  {
+    begin: "^\\s*(def)\\s+(?=[A-Za-z_][A-Za-z0-9_]*)"
+    beginCaptures:
+      "1":
+        name: "storage.type.function.cfengine"
+    end: "(\\()|\\s*($\\n?|#.*$\\n?)"
+    endCaptures:
+      "1":
+        name: "punctuation.definition.parameters.begin.cfengine"
+      "2":
+        name: "invalid.illegal.missing-parameters.cfengine"
+    name: "meta.function.cfengine"
+    patterns: [
+      {
+        begin: "(?=[A-Za-z_][A-Za-z0-9_]*)"
+        contentName: "entity.name.function.cfengine"
+        end: "(?![A-Za-z0-9_])"
+        patterns: [
+          {
+            include: "#entity_name_function"
+          }
+        ]
+      }
+    ]
+  }
+  {
+    begin: "(lambda)(?=\\s+)"
+    beginCaptures:
+      "1":
+        name: "storage.type.function.inline.cfengine"
+    end: "(\\:)"
+    endCaptures:
+      "1":
+        name: "punctuation.definition.parameters.end.cfengine"
+      "2":
+        name: "punctuation.section.function.begin.cfengine"
+      "3":
+        name: "invalid.illegal.missing-section-begin.cfengine"
+    name: "meta.function.inline.cfengine"
+    patterns: [
+      {
+        begin: "\\s+"
+        contentName: "meta.function.inline.parameters.cfengine"
+        end: "(?=\\:)"
+        patterns: [
+          {
+            include: "#keyword_arguments"
+          }
+          {
+            captures:
+              "1":
+                name: "variable.parameter.function.cfengine"
+              "2":
+                name: "punctuation.separator.parameters.cfengine"
+            match: "\\b([a-zA-Z_][a-zA-Z_0-9]*)\\s*(?:(,)|(?=[\\n\\)\\:]))"
+          }
+        ]
+      }
+    ]
+  }
+  {
+    begin: "^\\s*(?=@\\s*[A-Za-z_][A-Za-z0-9_]*(?:\\.[a-zA-Z_][a-zA-Z_0-9]*)*\\s*\\()"
+    comment: "a decorator may be a function call which returns a decorator."
+    end: "(\\))"
+    endCaptures:
+      "1":
+        name: "punctuation.definition.arguments.end.cfengine"
+    name: "meta.function.decorator.cfengine"
+    patterns: [
+      {
+        begin: "(?=(@)\\s*[A-Za-z_][A-Za-z0-9_]*(?:\\.[A-Za-z_][A-Za-z0-9_]*)*\\s*\\()"
+        beginCaptures:
+          "1":
+            name: "punctuation.definition.decorator.cfengine"
+        contentName: "entity.name.function.decorator.cfengine"
+        end: "(?=\\s*\\()"
+        patterns: [
+          {
+            include: "#dotted_name"
+          }
+        ]
+      }
+      {
+        begin: "(\\()"
+        beginCaptures:
+          "1":
+            name: "punctuation.definition.arguments.begin.cfengine"
+        contentName: "meta.function.decorator.arguments.cfengine"
+        end: "(?=\\))"
+        patterns: [
+          {
+            include: "#keyword_arguments"
+          }
+          {
+            include: "$self"
+          }
+        ]
+      }
+    ]
+  }
+  {
+    begin: "^\\s*(?=@\\s*[A-Za-z_][A-Za-z0-9_]*(?:\\.[a-zA-Z_][a-zA-Z_0-9]*)*)"
+    contentName: "entity.name.function.decorator.cfengine"
+    end: "(?=\\s|$\\n?|#)"
+    name: "meta.function.decorator.cfengine"
+    patterns: [
+      {
+        begin: "(?=(@)\\s*[A-Za-z_][A-Za-z0-9_]*(\\.[A-Za-z_][A-Za-z0-9_]*)*)"
+        beginCaptures:
+          "1":
+            name: "punctuation.definition.decorator.cfengine"
+        end: "(?=\\s|$\\n?|#)"
+        patterns: [
+          {
+            include: "#dotted_name"
+          }
+        ]
+      }
+    ]
+  }
+  {
+    begin: "(?<=\\)|\\])\\s*(\\()"
+    beginCaptures:
+      "1":
+        name: "punctuation.definition.arguments.begin.cfengine"
+    contentName: "meta.function-call.arguments.cfengine"
+    end: "(\\))"
+    endCaptures:
+      "1":
+        name: "punctuation.definition.arguments.end.cfengine"
+    name: "meta.function-call.cfengine"
+    patterns: [
+      {
+        include: "#keyword_arguments"
+      }
+      {
+        include: "$self"
+      }
+    ]
+  }
+  {
+    begin: "(?=[A-Za-z_][A-Za-z0-9_]*(?:\\.[a-zA-Z_][a-zA-Z_0-9]*)*\\s*\\()"
+    end: "(\\))"
+    endCaptures:
+      "1":
+        name: "punctuation.definition.arguments.end.cfengine"
+    name: "meta.function-call.cfengine"
+    patterns: [
+      {
+        begin: "(?=[A-Za-z_][A-Za-z0-9_]*(?:\\.[A-Za-z_][A-Za-z0-9_]*)*\\s*\\()"
+        end: "(?=\\s*\\()"
+        patterns: [
+          {
+            include: "#dotted_name"
+          }
+        ]
+      }
+      {
+        begin: "(\\()"
+        beginCaptures:
+          "1":
+            name: "punctuation.definition.arguments.begin.cfengine"
+        contentName: "meta.function-call.arguments.cfengine"
+        end: "(?=\\))"
+        patterns: [
+          {
+            include: "#keyword_arguments"
+          }
+          {
+            include: "$self"
+          }
+        ]
+      }
+    ]
+  }
+  {
+    begin: "(?=[A-Za-z_][A-Za-z0-9_]*(?:\\.[a-zA-Z_][a-zA-Z_0-9]*)*\\s*\\[)"
+    end: "(\\])"
+    endCaptures:
+      "1":
+        name: "punctuation.definition.arguments.end.cfengine"
+    name: "meta.item-access.cfengine"
+    patterns: [
+      {
+        begin: "(?=[A-Za-z_][A-Za-z0-9_]*(?:\\.[A-Za-z_][A-Za-z0-9_]*)*\\s*\\[)"
+        end: "(?=\\s*\\[)"
+        patterns: [
+          {
+            include: "#dotted_name"
+          }
+        ]
+      }
+      {
+        begin: "(\\[)"
+        beginCaptures:
+          "1":
+            name: "punctuation.definition.arguments.begin.cfengine"
+        contentName: "meta.item-access.arguments.cfengine"
+        end: "(?=\\])"
+        patterns: [
+          {
+            include: "$self"
+          }
+        ]
+      }
+    ]
+  }
+  {
+    begin: "(?<=\\)|\\])\\s*(\\[)"
+    beginCaptures:
+      "1":
+        name: "punctuation.definition.arguments.begin.cfengine"
+    contentName: "meta.item-access.arguments.cfengine"
+    end: "(\\])"
+    endCaptures:
+      "1":
+        name: "punctuation.definition.arguments.end.cfengine"
+    name: "meta.item-access.cfengine"
+    patterns: [
+      {
+        include: "$self"
+      }
+    ]
+  }
+  {
+    captures:
+      "1":
+        name: "storage.type.function.cfengine"
+    match: "\\b(def|lambda)\\b"
+  }
+  {
+    captures:
+      "1":
+        name: "storage.type.class.cfengine"
+    match: "\\b(class)\\b"
+  }
+  {
+    include: "#line_continuation"
+  }
+  {
+    include: "#language_variables"
+  }
+  {
+    match: "\\b(None|True|False|Ellipsis|NotImplemented)\\b"
+    name: "constant.language.cfengine"
+  }
+  {
+    include: "#string_quoted_single"
+  }
+  {
+    include: "#string_quoted_double"
+  }
+  {
+    match: "\\b\\w+\\s*(?==>)"
+    name: "constant.other.key.cfengine"
+  }
+  {
+    include: "#dotted_name"
+  }
+  {
+    begin: "(\\()"
+    end: "(\\))"
+    patterns: [
+      {
+        include: "$self"
+      }
+    ]
+  }
+  {
+    captures:
+      "1":
+        name: "punctuation.definition.list.begin.cfengine"
+      "2":
+        name: "meta.empty-list.cfengine"
+      "3":
+        name: "punctuation.definition.list.end.cfengine"
+    match: "(\\{)(\\s*(\\}))\\b"
+  }
+  {
+    begin: "(\\{)"
+    beginCaptures:
+      "1":
+        name: "punctuation.definition.list.begin.cfengine"
+    end: "(\\})"
+    endCaptures:
+      "1":
+        name: "punctuation.definition.list.end.cfengine"
+    name: "meta.structure.list.cfengine"
+    patterns: [
+      {
+        begin: "(?<=\\{|\\,)\\s*(?!{\\},})"
+        contentName: "meta.structure.list.item.cfengine"
+        end: "\\s*(?:(,)|(?=\\}))"
+        endCaptures:
+          "1":
+            name: "punctuation.separator.list.cfengine"
+        patterns: [
+          {
+            include: "$self"
+          }
+        ]
+      }
+    ]
+  }
+  {
+    captures:
+      "1":
+        name: "punctuation.definition.tuple.begin.cfengine"
+      "2":
+        name: "meta.empty-tuple.cfengine"
+      "3":
+        name: "punctuation.definition.tuple.end.cfengine"
+    match: "(\\()(\\s*(\\)))"
+    name: "meta.structure.tuple.cfengine"
+  }
+  {
+    captures:
+      "1":
+        name: "punctuation.definition.dictionary.begin.cfengine"
+      "2":
+        name: "meta.empty-dictionary.cfengine"
+      "3":
+        name: "punctuation.definition.dictionary.end.cfengine"
+    match: "(\\{)(\\s*(\\}))"
+    name: "meta.structure.dictionary.cfengine"
+  }
+  {
+    begin: "(\\{)"
+    beginCaptures:
+      "1":
+        name: "punctuation.definition.dictionary.begin.cfengine"
+    end: "(\\})"
+    endCaptures:
+      "1":
+        name: "punctuation.definition.dictionary.end.cfengine"
+    name: "meta.structure.dictionary.cfengine"
+    patterns: [
+      {
+        begin: "(?<=\\{|\\,|^)\\s*(?![\\},])"
+        contentName: "meta.structure.dictionary.key.cfengine"
+        end: "\\s*(?:(?=\\})|(\\:))"
+        endCaptures:
+          "1":
+            name: "punctuation.separator.valuepair.dictionary.cfengine"
+        patterns: [
+          {
+            include: "$self"
+          }
+        ]
+      }
+      {
+        begin: "(?<=\\:|^)\\s*"
+        contentName: "meta.structure.dictionary.value.cfengine"
+        end: "\\s*(?:(?=\\})|(,))"
+        endCaptures:
+          "1":
+            name: "punctuation.separator.dictionary.cfengine"
+        patterns: [
+          {
+            include: "$self"
+          }
+        ]
+      }
+    ]
+  }
+]
+repository:
+  builtin_exceptions:
+    match: '''
+      (?x)\\b(
+                      (
+                          Arithmetic|Assertion|Attribute|Buffer|EOF|Environment|FloatingPoint|IO|
+                          Import|Indentation|Index|Key|Lookup|Memory|Name|NotImplemented|OS|Overflow|
+                          Reference|Runtime|Standard|Syntax|System|Tab|Type|UnboundLocal|
+                          Unicode(Encode|Decode|Translate)?|
+                          Value|VMS|Windows|ZeroDivision
+                      )Error|
+                      ((Pending)?Deprecation|Runtime|Syntax|User|Future|Import|Unicode|Bytes)?Warning|
+                      (Base)?Exception|
+                      SystemExit|StopIteration|NotImplemented|KeyboardInterrupt|GeneratorExit
+                  )\\b
+    '''
+    name: "support.type.exception.cfengine"
+  builtin_functions:
+    match: '''
+      (?x)\\b(
+                      all|linux|debian|any|cfengine|vars|users|defaults|roles|access|files|services|packages|processes|commands|guest_environments|measurements|databases|reports|acl|alerts|binservers|broadcast|control|main|classes|copy|defaultroute|disks|directories|disable|editfiles|files|filters|groups|homeservers|ignore|import|interfaces|links|mailserver|methods|miscmounts|mountables|processes|packages|rename|required|resolve|shellcommands|tidy|unmount|redhat|ubuntu|gentoo|storage
+                  )\\b
+    '''
+    name: "support.function.builtin.cfengine"
+  builtin_types:
+    match: '''
+      (?x)\\b(
+                      delete_lines|insert_lines|create|string|agent|edit_line|common|cfengine|comment|handle|classes|acl|changes|copy_from|create|delete|depth_search|edit_defaults|edit_line|edit_template|edit_xml|file_select|link_from|move_obstructions|pathtype|perms|rename|repository|touch|transformer|action|admit|build_directory|report_output|style_sheet|forgetrate|histograms|hosts|denybadclocks|allowconnects|allowallconnects|trustkeysfrom|skipverify|allowusers|maxconnections|slist|ifelapsed|skipidentify|environment|splaytime|mailto|mailfrom|smtpserver|exec_command|process_select|process_count
+                  )\\b
+    '''
+    name: "support.type.cfengine"
+  constant_placeholder:
+    match: "(?i:%(\\([a-z_]+\\))?#?0?\\-?[ ]?\\+?([0-9]*|\\*)(\\.([0-9]*|\\*))?[hL]?[a-z%])"
+    name: "constant.other.placeholder.cfengine"
+  embedded_comment:
+    captures:
+      "1":
+        name: "punctuation.definition.comment.cfengine"
+    match: "(#).*$\\n?"
+    name: "comment.line.number-sign.cfengine"
+  docstrings:
+    patterns: [
+      {
+        begin: "^\\s*(?=[uU]?[rR]?\"\"\")"
+        end: "(?<=\"\"\")"
+        name: "comment.block.cfengine"
+        patterns: [
+          {
+            include: "#string_quoted_double"
+          }
+        ]
+      }
+      {
+        begin: "^\\s*(?=[uU]?[rR]?''')"
+        end: "(?<=''')"
+        name: "comment.block.cfengine"
+        patterns: [
+          {
+            include: "#string_quoted_single"
+          }
+        ]
+      }
+    ]
+  dotted_name:
+    begin: "(?=[A-Za-z_][A-Za-z0-9_]*(?:\\.[A-Za-z_][A-Za-z0-9_]*)*)"
+    end: "(?![A-Za-z0-9_\\.])"
+    patterns: [
+      {
+        begin: "(\\.)(?=[A-Za-z_][A-Za-z0-9_]*)"
+        end: "(?![A-Za-z0-9_])"
+        patterns: [
+          {
+            include: "#magic_function_names"
+          }
+          {
+            include: "#magic_variable_names"
+          }
+          {
+            include: "#illegal_names"
+          }
+          {
+            include: "#generic_names"
+          }
+        ]
+      }
+      {
+        begin: "(?<!\\.)(?=[A-Za-z_][A-Za-z0-9_]*)"
+        end: "(?![A-Za-z0-9_])"
+        patterns: [
+          {
+            include: "#builtin_functions"
+          }
+          {
+            include: "#builtin_types"
+          }
+          {
+            include: "#builtin_exceptions"
+          }
+          {
+            include: "#illegal_names"
+          }
+          {
+            include: "#magic_function_names"
+          }
+          {
+            include: "#magic_variable_names"
+          }
+          {
+            include: "#language_variables"
+          }
+          {
+            include: "#generic_names"
+          }
+        ]
+      }
+    ]
+  entity_name_class:
+    patterns: [
+      {
+        include: "#illegal_names"
+      }
+      {
+        include: "#generic_names"
+      }
+    ]
+  entity_name_function:
+    patterns: [
+      {
+        include: "#magic_function_names"
+      }
+      {
+        include: "#illegal_names"
+      }
+      {
+        include: "#generic_names"
+      }
+    ]
+  escaped_char:
+    captures:
+      "1":
+        name: "constant.character.escape.hex.cfengine"
+      "2":
+        name: "constant.character.escape.octal.cfengine"
+      "3":
+        name: "constant.character.escape.newline.cfengine"
+      "4":
+        name: "constant.character.escape.backlash.cfengine"
+      "5":
+        name: "constant.character.escape.double-quote.cfengine"
+      "6":
+        name: "constant.character.escape.single-quote.cfengine"
+      "7":
+        name: "constant.character.escape.bell.cfengine"
+      "8":
+        name: "constant.character.escape.backspace.cfengine"
+      "9":
+        name: "constant.character.escape.formfeed.cfengine"
+      "10":
+        name: "constant.character.escape.linefeed.cfengine"
+      "11":
+        name: "constant.character.escape.return.cfengine"
+      "12":
+        name: "constant.character.escape.tab.cfengine"
+      "13":
+        name: "constant.character.escape.vertical-tab.cfengine"
+    match: "(\\\\x[0-9A-F]{2})|(\\\\[0-7]{3})|(\\\\\\n)|(\\\\\\\\)|(\\\\\\\")|(\\\\')|(\\\\a)|(\\\\b)|(\\\\f)|(\\\\n)|(\\\\r)|(\\\\t)|(\\\\v)"
+  escaped_unicode_char:
+    captures:
+      "1":
+        name: "constant.character.escape.unicode.16-bit-hex.cfengine"
+      "2":
+        name: "constant.character.escape.unicode.32-bit-hex.cfengine"
+      "3":
+        name: "constant.character.escape.unicode.name.cfengine"
+    match: "(\\\\U[0-9A-Fa-f]{8})|(\\\\u[0-9A-Fa-f]{4})|(\\\\N\\{[a-zA-Z ]+\\})"
+  function_name:
+    patterns: [
+      {
+        include: "#magic_function_names"
+      }
+      {
+        include: "#magic_variable_names"
+      }
+      {
+        include: "#builtin_exceptions"
+      }
+      {
+        include: "#builtin_functions"
+      }
+      {
+        include: "#builtin_types"
+      }
+      {
+        include: "#generic_names"
+      }
+    ]
+  generic_names:
+    match: "[A-Za-z_][A-Za-z0-9_]*"
+  illegal_names:
+    match: "\\b(and|as|assert|break|class|continue|def|del|elif|else|except|exec|finally|for|from|global|if|import|bundlesequence|inputs|version|in|is|lambda|not|or|pass|print|raise|return|try|while|with|yield)\\b"
+    name: "invalid.illegal.name.cfengine"
+  keyword_arguments:
+    begin: "\\b([a-zA-Z_][a-zA-Z_0-9]*)\\s*(=)(?!=)"
+    beginCaptures:
+      "1":
+        name: "variable.parameter.function.cfengine"
+      "2":
+        name: "keyword.operator.assignment.cfengine"
+    end: "\\s*(?:(,)|(?=$\\n?|[\\)\\:]))"
+    endCaptures:
+      "1":
+        name: "punctuation.separator.parameters.cfengine"
+    patterns: [
+      {
+        include: "$self"
+      }
+    ]
+  language_variables:
+    match: "\\b(self|cls)\\b"
+    name: "variable.language.cfengine"
+  line_continuation:
+    captures:
+      "1":
+        name: "punctuation.separator.continuation.line.cfengine"
+      "2":
+        name: "invalid.illegal.unexpected-text.cfengine"
+    match: "(\\\\)(.*)$\\n?"
+  magic_function_names:
+    comment: "these methods have magic interpretation by cfengine and are generally called indirectly through syntactic constructs"
+    match: '''
+      (?x)\\b(__(?:
+                              abs|add|and|call|cmp|coerce|complex|contains|del|delattr|
+                              delete|delitem|delslice|div|divmod|enter|eq|exit|float|
+                              floordiv|ge|get|getattr|getattribute|getitem|getslice|gt|
+                              hash|hex|iadd|iand|idiv|ifloordiv|ilshift|imod|imul|init|
+                              int|invert|ior|ipow|irshift|isub|iter|itruediv|ixor|le|len|
+                              long|lshift|lt|mod|mul|ne|neg|new|nonzero|oct|or|pos|pow|
+                              radd|rand|rdiv|rdivmod|repr|rfloordiv|rlshift|rmod|rmul|ror|
+                              rpow|rrshift|rshift|rsub|rtruediv|rxor|set|setattr|setitem|
+                              setslice|str|sub|truediv|unicode|xor
+                          )__)\\b
+    '''
+    name: "support.function.magic.cfengine"
+  magic_variable_names:
+    comment: "magic variables which a class/module may have."
+    match: "\\b__(bases|class|debug|dict|doc|file|members|metaclass|methods|name|slots|weakref)__\\b"
+    name: "support.variable.magic.cfengine"
+  regular_expressions:
+    comment: "Changed disabled to 1 to turn off syntax highlighting in “r” strings."
+    disabled: 0
+    patterns: [
+      {
+        include: "source.regexp.cfengine"
+      }
+    ]
+  string_quoted_double:
+    patterns: [
+      {
+        begin: "([uU]r)(\"\"\")"
+        beginCaptures:
+          "1":
+            name: "storage.type.string.cfengine"
+          "2":
+            name: "punctuation.definition.string.begin.cfengine"
+        comment: "single quoted unicode-raw string"
+        end: "((?<=\"\"\")(\")\"\"|\"\"\")"
+        endCaptures:
+          "1":
+            name: "punctuation.definition.string.end.cfengine"
+          "2":
+            name: "meta.empty-string.double.cfengine"
+        name: "string.quoted.double.block.unicode-raw-regex.cfengine"
+        patterns: [
+          {
+            include: "#constant_placeholder"
+          }
+          {
+            include: "#escaped_unicode_char"
+          }
+          {
+            include: "#escaped_char"
+          }
+          {
+            include: "#regular_expressions"
+          }
+        ]
+      }
+      {
+        begin: "([uU]R)(\"\"\")"
+        beginCaptures:
+          "1":
+            name: "storage.type.string.cfengine"
+          "2":
+            name: "punctuation.definition.string.begin.cfengine"
+        comment: "single quoted unicode-raw string without regular expression highlighting"
+        end: "((?<=\"\"\")(\")\"\"|\"\"\")"
+        endCaptures:
+          "1":
+            name: "punctuation.definition.string.end.cfengine"
+          "2":
+            name: "meta.empty-string.double.cfengine"
+        name: "string.quoted.double.block.unicode-raw.cfengine"
+        patterns: [
+          {
+            include: "#constant_placeholder"
+          }
+          {
+            include: "#escaped_unicode_char"
+          }
+          {
+            include: "#escaped_char"
+          }
+        ]
+      }
+      {
+        begin: "(r)(\"\"\")"
+        beginCaptures:
+          "1":
+            name: "storage.type.string.cfengine"
+          "2":
+            name: "punctuation.definition.string.begin.cfengine"
+        comment: "double quoted raw string"
+        end: "((?<=\"\"\")(\")\"\"|\"\"\")"
+        endCaptures:
+          "1":
+            name: "punctuation.definition.string.end.cfengine"
+          "2":
+            name: "meta.empty-string.double.cfengine"
+        name: "string.quoted.double.block.raw-regex.cfengine"
+        patterns: [
+          {
+            include: "#constant_placeholder"
+          }
+          {
+            include: "#escaped_char"
+          }
+          {
+            include: "#regular_expressions"
+          }
+        ]
+      }
+      {
+        begin: "(R)(\"\"\")"
+        beginCaptures:
+          "1":
+            name: "storage.type.string.cfengine"
+          "2":
+            name: "punctuation.definition.string.begin.cfengine"
+        comment: "double quoted raw string"
+        end: "((?<=\"\"\")(\")\"\"|\"\"\")"
+        endCaptures:
+          "1":
+            name: "punctuation.definition.string.end.cfengine"
+          "2":
+            name: "meta.empty-string.double.cfengine"
+        name: "string.quoted.double.block.raw.cfengine"
+        patterns: [
+          {
+            include: "#constant_placeholder"
+          }
+          {
+            include: "#escaped_char"
+          }
+        ]
+      }
+      {
+        begin: "([uU])(\"\"\")"
+        beginCaptures:
+          "1":
+            name: "storage.type.string.cfengine"
+          "2":
+            name: "punctuation.definition.string.begin.cfengine"
+        comment: "double quoted unicode string"
+        end: "((?<=\"\"\")(\")\"\"|\"\"\")"
+        endCaptures:
+          "1":
+            name: "punctuation.definition.string.end.cfengine"
+          "2":
+            name: "meta.empty-string.double.cfengine"
+        name: "string.quoted.double.block.unicode.cfengine"
+        patterns: [
+          {
+            include: "#constant_placeholder"
+          }
+          {
+            include: "#escaped_unicode_char"
+          }
+          {
+            include: "#escaped_char"
+          }
+        ]
+      }
+      {
+        begin: "([uU]r)(\")"
+        beginCaptures:
+          "1":
+            name: "storage.type.string.cfengine"
+          "2":
+            name: "punctuation.definition.string.begin.cfengine"
+        comment: "double-quoted raw string"
+        end: "((?<=\")(\")|\")|(\\n)"
+        endCaptures:
+          "1":
+            name: "punctuation.definition.string.end.cfengine"
+          "2":
+            name: "meta.empty-string.double.cfengine"
+          "3":
+            name: "invalid.illegal.unclosed-string.cfengine"
+        name: "string.quoted.double.single-line.unicode-raw-regex.cfengine"
+        patterns: [
+          {
+            include: "#constant_placeholder"
+          }
+          {
+            include: "#escaped_unicode_char"
+          }
+          {
+            include: "#escaped_char"
+          }
+          {
+            include: "#regular_expressions"
+          }
+        ]
+      }
+      {
+        begin: "([uU]R)(\")"
+        beginCaptures:
+          "1":
+            name: "storage.type.string.cfengine"
+          "2":
+            name: "punctuation.definition.string.begin.cfengine"
+        comment: "double-quoted raw string"
+        end: "((?<=\")(\")|\")|(\\n)"
+        endCaptures:
+          "1":
+            name: "punctuation.definition.string.end.cfengine"
+          "2":
+            name: "meta.empty-string.double.cfengine"
+          "3":
+            name: "invalid.illegal.unclosed-string.cfengine"
+        name: "string.quoted.double.single-line.unicode-raw.cfengine"
+        patterns: [
+          {
+            include: "#constant_placeholder"
+          }
+          {
+            include: "#escaped_unicode_char"
+          }
+          {
+            include: "#escaped_char"
+          }
+        ]
+      }
+      {
+        begin: "(r)(\")"
+        beginCaptures:
+          "1":
+            name: "storage.type.string.cfengine"
+          "2":
+            name: "punctuation.definition.string.begin.cfengine"
+        comment: "double-quoted raw string"
+        end: "((?<=\")(\")|\")|(\\n)"
+        endCaptures:
+          "1":
+            name: "punctuation.definition.string.end.cfengine"
+          "2":
+            name: "meta.empty-string.double.cfengine"
+          "3":
+            name: "invalid.illegal.unclosed-string.cfengine"
+        name: "string.quoted.double.single-line.raw-regex.cfengine"
+        patterns: [
+          {
+            include: "#constant_placeholder"
+          }
+          {
+            include: "#escaped_char"
+          }
+          {
+            include: "#regular_expressions"
+          }
+        ]
+      }
+      {
+        begin: "(R)(\")"
+        beginCaptures:
+          "1":
+            name: "storage.type.string.cfengine"
+          "2":
+            name: "punctuation.definition.string.begin.cfengine"
+        comment: "double-quoted raw string"
+        end: "((?<=\")(\")|\")|(\\n)"
+        endCaptures:
+          "1":
+            name: "punctuation.definition.string.end.cfengine"
+          "2":
+            name: "meta.empty-string.double.cfengine"
+          "3":
+            name: "invalid.illegal.unclosed-string.cfengine"
+        name: "string.quoted.double.single-line.raw.cfengine"
+        patterns: [
+          {
+            include: "#constant_placeholder"
+          }
+          {
+            include: "#escaped_char"
+          }
+        ]
+      }
+      {
+        begin: "([uU])(\")"
+        beginCaptures:
+          "1":
+            name: "storage.type.string.cfengine"
+          "2":
+            name: "punctuation.definition.string.begin.cfengine"
+        comment: "double quoted unicode string"
+        end: "((?<=\")(\")|\")|(\\n)"
+        endCaptures:
+          "1":
+            name: "punctuation.definition.string.end.cfengine"
+          "2":
+            name: "meta.empty-string.double.cfengine"
+          "3":
+            name: "invalid.illegal.unclosed-string.cfengine"
+        name: "string.quoted.double.single-line.unicode.cfengine"
+        patterns: [
+          {
+            include: "#constant_placeholder"
+          }
+          {
+            include: "#escaped_unicode_char"
+          }
+          {
+            include: "#escaped_char"
+          }
+        ]
+      }
+      {
+        begin: "(\"\"\")(?=\\s*(SELECT|INSERT|UPDATE|DELETE|CREATE|REPLACE|ALTER))"
+        beginCaptures:
+          "1":
+            name: "punctuation.definition.string.begin.cfengine"
+        comment: "double quoted string"
+        end: "((?<=\"\"\")(\")\"\"|\"\"\")"
+        endCaptures:
+          "1":
+            name: "punctuation.definition.string.end.cfengine"
+          "2":
+            name: "meta.empty-string.double.cfengine"
+        name: "string.quoted.double.block.sql.cfengine"
+        patterns: [
+          {
+            include: "#constant_placeholder"
+          }
+          {
+            include: "#escaped_char"
+          }
+          {
+            include: "source.sql"
+          }
+        ]
+      }
+      {
+        begin: "(\")(?=\\s*(SELECT|INSERT|UPDATE|DELETE|CREATE|REPLACE|ALTER))"
+        beginCaptures:
+          "1":
+            name: "punctuation.definition.string.begin.cfengine"
+        comment: "double quoted string"
+        end: "((?<=\")(\")|\")|(\\n)"
+        endCaptures:
+          "1":
+            name: "punctuation.definition.string.end.cfengine"
+          "2":
+            name: "meta.empty-string.double.cfengine"
+          "3":
+            name: "invalid.illegal.unclosed-string.cfengine"
+        name: "string.quoted.double.single-line.sql.cfengine"
+        patterns: [
+          {
+            include: "#constant_placeholder"
+          }
+          {
+            include: "#escaped_char"
+          }
+          {
+            include: "source.sql"
+          }
+        ]
+      }
+      {
+        begin: "(\"\"\")"
+        beginCaptures:
+          "1":
+            name: "punctuation.definition.string.begin.cfengine"
+        comment: "double quoted string"
+        end: "((?<=\"\"\")(\")\"\"|\"\"\")"
+        endCaptures:
+          "1":
+            name: "punctuation.definition.string.end.cfengine"
+          "2":
+            name: "meta.empty-string.double.cfengine"
+        name: "string.quoted.double.block.cfengine"
+        patterns: [
+          {
+            include: "#constant_placeholder"
+          }
+          {
+            include: "#escaped_char"
+          }
+        ]
+      }
+      {
+        begin: "(\")"
+        beginCaptures:
+          "1":
+            name: "punctuation.definition.string.begin.cfengine"
+        comment: "double quoted string"
+        end: "((?<=\")(\")|\")|(\\n)"
+        endCaptures:
+          "1":
+            name: "punctuation.definition.string.end.cfengine"
+          "2":
+            name: "meta.empty-string.double.cfengine"
+          "3":
+            name: "invalid.illegal.unclosed-string.cfengine"
+        name: "string.quoted.double.single-line.cfengine"
+        patterns: [
+          {
+            include: "#constant_placeholder"
+          }
+          {
+            include: "#escaped_char"
+          }
+        ]
+      }
+    ]
+  string_quoted_single:
+    patterns: [
+      {
+        captures:
+          "1":
+            name: "punctuation.definition.string.begin.cfengine"
+          "2":
+            name: "punctuation.definition.string.end.cfengine"
+          "3":
+            name: "meta.empty-string.single.cfengine"
+        match: "(?<!')(')(('))(?!')"
+        name: "string.quoted.single.single-line.cfengine"
+      }
+      {
+        begin: "([uU]r)(''')"
+        beginCaptures:
+          "1":
+            name: "storage.type.string.cfengine"
+          "2":
+            name: "punctuation.definition.string.begin.cfengine"
+        comment: "single quoted unicode-raw string"
+        end: "((?<=''')(')''|''')"
+        endCaptures:
+          "1":
+            name: "punctuation.definition.string.end.cfengine"
+          "2":
+            name: "meta.empty-string.single.cfengine"
+        name: "string.quoted.single.block.unicode-raw-regex.cfengine"
+        patterns: [
+          {
+            include: "#constant_placeholder"
+          }
+          {
+            include: "#escaped_unicode_char"
+          }
+          {
+            include: "#escaped_char"
+          }
+          {
+            include: "#regular_expressions"
+          }
+        ]
+      }
+      {
+        begin: "([uU]R)(''')"
+        beginCaptures:
+          "1":
+            name: "storage.type.string.cfengine"
+          "2":
+            name: "punctuation.definition.string.begin.cfengine"
+        comment: "single quoted unicode-raw string"
+        end: "((?<=''')(')''|''')"
+        endCaptures:
+          "1":
+            name: "punctuation.definition.string.end.cfengine"
+          "2":
+            name: "meta.empty-string.single.cfengine"
+        name: "string.quoted.single.block.unicode-raw.cfengine"
+        patterns: [
+          {
+            include: "#constant_placeholder"
+          }
+          {
+            include: "#escaped_unicode_char"
+          }
+          {
+            include: "#escaped_char"
+          }
+        ]
+      }
+      {
+        begin: "(r)(''')"
+        beginCaptures:
+          "1":
+            name: "storage.type.string.cfengine"
+          "2":
+            name: "punctuation.definition.string.begin.cfengine"
+        comment: "single quoted raw string"
+        end: "((?<=''')(')''|''')"
+        endCaptures:
+          "1":
+            name: "punctuation.definition.string.end.cfengine"
+          "2":
+            name: "meta.empty-string.single.cfengine"
+        name: "string.quoted.single.block.raw-regex.cfengine"
+        patterns: [
+          {
+            include: "#constant_placeholder"
+          }
+          {
+            include: "#escaped_char"
+          }
+          {
+            include: "#regular_expressions"
+          }
+        ]
+      }
+      {
+        begin: "(R)(''')"
+        beginCaptures:
+          "1":
+            name: "storage.type.string.cfengine"
+          "2":
+            name: "punctuation.definition.string.begin.cfengine"
+        comment: "single quoted raw string"
+        end: "((?<=''')(')''|''')"
+        endCaptures:
+          "1":
+            name: "punctuation.definition.string.end.cfengine"
+          "2":
+            name: "meta.empty-string.single.cfengine"
+        name: "string.quoted.single.block.raw.cfengine"
+        patterns: [
+          {
+            include: "#constant_placeholder"
+          }
+          {
+            include: "#escaped_char"
+          }
+        ]
+      }
+      {
+        begin: "([uU])(''')"
+        beginCaptures:
+          "1":
+            name: "storage.type.string.cfengine"
+          "2":
+            name: "punctuation.definition.string.begin.cfengine"
+        comment: "single quoted unicode string"
+        end: "((?<=''')(')''|''')"
+        endCaptures:
+          "1":
+            name: "punctuation.definition.string.end.cfengine"
+          "2":
+            name: "meta.empty-string.single.cfengine"
+        name: "string.quoted.single.block.unicode.cfengine"
+        patterns: [
+          {
+            include: "#constant_placeholder"
+          }
+          {
+            include: "#escaped_unicode_char"
+          }
+          {
+            include: "#escaped_char"
+          }
+        ]
+      }
+      {
+        begin: "([uU]r)(')"
+        beginCaptures:
+          "1":
+            name: "storage.type.string.cfengine"
+          "2":
+            name: "punctuation.definition.string.begin.cfengine"
+        comment: "single quoted raw string"
+        end: "(')|(\\n)"
+        endCaptures:
+          "1":
+            name: "punctuation.definition.string.end.cfengine"
+          "2":
+            name: "invalid.illegal.unclosed-string.cfengine"
+        name: "string.quoted.single.single-line.unicode-raw-regex.cfengine"
+        patterns: [
+          {
+            include: "#constant_placeholder"
+          }
+          {
+            include: "#escaped_unicode_char"
+          }
+          {
+            include: "#escaped_char"
+          }
+          {
+            include: "#regular_expressions"
+          }
+        ]
+      }
+      {
+        begin: "([uU]R)(')"
+        beginCaptures:
+          "1":
+            name: "storage.type.string.cfengine"
+          "2":
+            name: "punctuation.definition.string.begin.cfengine"
+        comment: "single quoted raw string"
+        end: "(')|(\\n)"
+        endCaptures:
+          "1":
+            name: "punctuation.definition.string.end.cfengine"
+          "2":
+            name: "invalid.illegal.unclosed-string.cfengine"
+        name: "string.quoted.single.single-line.unicode-raw.cfengine"
+        patterns: [
+          {
+            include: "#constant_placeholder"
+          }
+          {
+            include: "#escaped_unicode_char"
+          }
+          {
+            include: "#escaped_char"
+          }
+        ]
+      }
+      {
+        begin: "(r)(')"
+        beginCaptures:
+          "1":
+            name: "storage.type.string.cfengine"
+          "2":
+            name: "punctuation.definition.string.begin.cfengine"
+        comment: "single quoted raw string"
+        end: "(')|(\\n)"
+        endCaptures:
+          "1":
+            name: "punctuation.definition.string.end.cfengine"
+          "2":
+            name: "invalid.illegal.unclosed-string.cfengine"
+        name: "string.quoted.single.single-line.raw-regex.cfengine"
+        patterns: [
+          {
+            include: "#constant_placeholder"
+          }
+          {
+            include: "#escaped_char"
+          }
+          {
+            include: "#regular_expressions"
+          }
+        ]
+      }
+      {
+        begin: "(R)(')"
+        beginCaptures:
+          "1":
+            name: "storage.type.string.cfengine"
+          "2":
+            name: "punctuation.definition.string.begin.cfengine"
+        comment: "single quoted raw string"
+        end: "(')|(\\n)"
+        endCaptures:
+          "1":
+            name: "punctuation.definition.string.end.cfengine"
+          "2":
+            name: "invalid.illegal.unclosed-string.cfengine"
+        name: "string.quoted.single.single-line.raw.cfengine"
+        patterns: [
+          {
+            include: "#constant_placeholder"
+          }
+          {
+            include: "#escaped_char"
+          }
+        ]
+      }
+      {
+        begin: "([uU])(')"
+        beginCaptures:
+          "1":
+            name: "storage.type.string.cfengine"
+          "2":
+            name: "punctuation.definition.string.begin.cfengine"
+        comment: "single quoted unicode string"
+        end: "(')|(\\n)"
+        endCaptures:
+          "1":
+            name: "punctuation.definition.string.end.cfengine"
+          "2":
+            name: "invalid.illegal.unclosed-string.cfengine"
+        name: "string.quoted.single.single-line.unicode.cfengine"
+        patterns: [
+          {
+            include: "#constant_placeholder"
+          }
+          {
+            include: "#escaped_unicode_char"
+          }
+          {
+            include: "#escaped_char"
+          }
+        ]
+      }
+      {
+        begin: "(''')(?=\\s*(SELECT|INSERT|UPDATE|DELETE|CREATE|REPLACE|ALTER))"
+        beginCaptures:
+          "1":
+            name: "punctuation.definition.string.begin.cfengine"
+        comment: "single quoted string"
+        end: "((?<=''')(')''|''')"
+        endCaptures:
+          "1":
+            name: "punctuation.definition.string.end.cfengine"
+          "2":
+            name: "meta.empty-string.single.cfengine"
+        name: "string.quoted.single.block.cfengine"
+        patterns: [
+          {
+            include: "#constant_placeholder"
+          }
+          {
+            include: "#escaped_char"
+          }
+          {
+            include: "source.sql"
+          }
+        ]
+      }
+      {
+        begin: "(')(?=\\s*(SELECT|INSERT|UPDATE|DELETE|CREATE|REPLACE|ALTER))"
+        beginCaptures:
+          "1":
+            name: "punctuation.definition.string.begin.cfengine"
+        comment: "single quoted string"
+        end: "(')|(\\n)"
+        endCaptures:
+          "1":
+            name: "punctuation.definition.string.end.cfengine"
+          "2":
+            name: "invalid.illegal.unclosed-string.cfengine"
+        name: "string.quoted.single.single-line.cfengine"
+        patterns: [
+          {
+            include: "#constant_placeholder"
+          }
+          {
+            include: "#escaped_char"
+          }
+          {
+            include: "source.sql"
+          }
+        ]
+      }
+      {
+        begin: "(''')"
+        beginCaptures:
+          "1":
+            name: "punctuation.definition.string.begin.cfengine"
+        comment: "single quoted string"
+        end: "((?<=''')(')''|''')"
+        endCaptures:
+          "1":
+            name: "punctuation.definition.string.end.cfengine"
+          "2":
+            name: "meta.empty-string.single.cfengine"
+        name: "string.quoted.single.block.cfengine"
+        patterns: [
+          {
+            include: "#constant_placeholder"
+          }
+          {
+            include: "#escaped_char"
+          }
+        ]
+      }
+      {
+        begin: "(')"
+        beginCaptures:
+          "1":
+            name: "punctuation.definition.string.begin.cfengine"
+        comment: "single quoted string"
+        end: "(')|(\\n)"
+        endCaptures:
+          "1":
+            name: "punctuation.definition.string.end.cfengine"
+          "2":
+            name: "invalid.illegal.unclosed-string.cfengine"
+        name: "string.quoted.single.single-line.cfengine"
+        patterns: [
+          {
+            include: "#constant_placeholder"
+          }
+          {
+            include: "#escaped_char"
+          }
+        ]
+      }
+    ]
+  strings:
+    patterns: [
+      {
+        include: "#string_quoted_double"
+      }
+      {
+        include: "#string_quoted_single"
+      }
+    ]
+scopeName: "source.cfengine"

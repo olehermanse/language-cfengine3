@@ -1,0 +1,534 @@
+".source.cfengine":
+  "CFEngine: accessedbefore":
+    prefix: "accessedbefore"
+    body: "accessedbefore(${1:newer}, ${2:older})"
+  "CFEngine: accumulated":
+    prefix: "accumulated"
+    body: "accumulated(${1:years}, ${2:months}, ${3:days}, ${4:hours}, ${5:minutes}, ${6:seconds})"
+  "CFEngine: ago":
+    prefix: "ago"
+    body: "ago(${1:years}, ${2:months}, ${3:days}, ${4:hours}, ${5:minutes}, ${6:seconds})"
+  "CFEngine: and":
+    prefix: "and"
+    body: "and(${1:...})"
+  "Bundle agent":
+    prefix: "bundla"
+    body: '''
+      
+      bundle agent ${1:bundlename}
+      	{
+      		vars:
+      			${2:}
+      
+      		classes:
+      			${3:}
+      
+      		files:
+      			${4:}
+      
+      		packages:
+      			${5:}
+      
+      		methods:
+      			${6:}
+      
+      		processes:
+      			${7:}
+      
+      		services:
+      			${8:}
+      
+      		commands:
+      			${9:}
+      
+      		reports:
+      			${10:}
+      
+      		storage:
+      			${11:}
+      
+      }
+    '''
+  "CFEngine: bundlesmatching":
+    prefix: "bundlesmatching"
+    body: "bundlesmatching(${1:name}, ${2:tag1}, ${3:tag2}, ${4:...})"
+  "CFEngine: canonify":
+    prefix: "canonify"
+    body: "canonify(${1:text})"
+  "CFEngine: canonifyuniquely":
+    prefix: "canonifyuniquely"
+    body: "canonifyuniquely(${1:text})"
+  "CFEngine: changedbefore":
+    prefix: "changedbefore"
+    body: "changedbefore(${1:newer}, ${2:older})"
+  "CFEngine: classesmatching":
+    prefix: "classesmatching"
+    body: "classesmatching(${1:name}, ${2:tag1}, ${3:tag2}, ${4:...})"
+  "CFEngine: classify":
+    prefix: "classify"
+    body: "classify(${1:text})"
+  "CFEngine: classmatch":
+    prefix: "classmatch"
+    body: "classmatch(${1:regex})"
+  "comment declaration":
+    prefix: "comment"
+    body: '''
+      
+      comment     =>      "${1:This does that.}";
+      
+    '''
+  "CFEngine: concat":
+    prefix: "concat"
+    body: "concat(${1:...})"
+  "CFEngine: countclassesmatching":
+    prefix: "countclassesmatching"
+    body: "countclassesmatching(${1:regex})"
+  "CFEngine: countlinesmatching":
+    prefix: "countlinesmatching"
+    body: "countlinesmatching(${1:regex}, ${2:filename})"
+  "CFEngine: data_readstringarray":
+    prefix: "data_readstringarray"
+    body: "data_readstringarray(${1:filename}, ${2:comment}, ${3:split}, ${4:maxentries}, ${5:maxbytes})"
+  "CFEngine: data_readstringarrayidx":
+    prefix: "data_readstringarrayidx"
+    body: "data_readstringarrayidx(${1:filename}, ${2:comment}, ${3:split}, ${4:maxentries}, ${5:maxbytes})"
+  "CFEngine: datastate":
+    prefix: "datastate"
+    body: "datastate(${1:})"
+  "CFEngine: difference":
+    prefix: "difference"
+    body: "difference(${1:list1}, ${2:list2})"
+  "CFEngine: dirname":
+    prefix: "dirname"
+    body: "dirname(${1:path})"
+  "CFEngine: diskfree":
+    prefix: "diskfree"
+    body: "diskfree(${1:path})"
+  "CFEngine: escape":
+    prefix: "escape"
+    body: "escape(${1:text})"
+  "CFEngine: eval":
+    prefix: "eval"
+    body: "eval(${1:mode}, ${2:options}, ${3:expression})"
+  "CFEngine: every":
+    prefix: "every"
+    body: "every(${1:regex}, ${2:list})"
+  "CFEngine: execresult":
+    prefix: "execresult"
+    body: "execresult(${1:command}, ${2:shell})"
+  "Expand template promices":
+    prefix: "etmpl"
+    body: '''
+      
+      "${1:/path/to/file}"
+      	create          => "${2:true}",
+      	comment         => "${3:This does that.}",
+      	perms           =>  mog( "${4:644}", "${5:root}", "${6:root}"),
+      	edit_template   => "${7:/path/to/template/}",
+      	template_method => "${8:mustache|cfengine}"
+      	classes         => if_repaired("${9:class_name}");
+      
+    '''
+  "CFEngine: fileexists":
+    prefix: "fileexists"
+    body: "fileexists(${1:filename})"
+  "CFEngine: filesexist":
+    prefix: "filesexist"
+    body: "filesexist(${1:list})"
+  "CFEngine: filesize":
+    prefix: "filesize"
+    body: "filesize(${1:filename})"
+  "CFEngine: filestat":
+    prefix: "filestat"
+    body: "filestat(${1:filename}, ${2:field})"
+  "CFEngine: filter":
+    prefix: "filter"
+    body: "filter(${1:filter}, ${2:list}, ${3:is_regex}, ${4:invert}, ${5:max_return})"
+  "CFEngine: findfiles":
+    prefix: "findfiles"
+    body: "findfiles(${1:glob1}, ${2:glob2}, ${3:...})"
+  "CFEngine: format":
+    prefix: "format"
+    body: "format(${1:string}, ${2:...})"
+  "CFEngine: getclassmetatags":
+    prefix: "getclassmetatags"
+    body: "getclassmetatags(${1:classname})"
+  "CFEngine: getenv":
+    prefix: "getenv"
+    body: "getenv(${1:variable}, ${2:maxlength})"
+  "CFEngine: getfields":
+    prefix: "getfields"
+    body: "getfields(${1:regex}, ${2:filename}, ${3:split}, ${4:array_lval})"
+  "CFEngine: getgid":
+    prefix: "getgid"
+    body: "getgid(${1:groupname})"
+  "CFEngine: getindices":
+    prefix: "getindices"
+    body: "getindices(${1:varref})"
+  "CFEngine: getuid":
+    prefix: "getuid"
+    body: "getuid(${1:username})"
+  "CFEngine: getusers":
+    prefix: "getusers"
+    body: "getusers(${1:exclude_names}, ${2:exclude_ids})"
+  "CFEngine: getvalues":
+    prefix: "getvalues"
+    body: "getvalues(${1:varref})"
+  "CFEngine: getvariablemetatags":
+    prefix: "getvariablemetatags"
+    body: "getvariablemetatags(${1:varname})"
+  "CFEngine: grep":
+    prefix: "grep"
+    body: "grep(${1:regex}, ${2:list})"
+  "CFEngine: groupexists":
+    prefix: "groupexists"
+    body: "groupexists(${1:group})"
+  "CFEngine: hash":
+    prefix: "hash"
+    body: "hash(${1:input}, ${2:algorithm})"
+  "CFEngine: hashmatch":
+    prefix: "hashmatch"
+    body: "hashmatch(${1:filename}, ${2:algorithm}, ${3:hash})"
+  "CFEngine: host2ip":
+    prefix: "host2ip"
+    body: "host2ip(${1:hostname})"
+  "CFEngine: hostinnetgroup":
+    prefix: "hostinnetgroup"
+    body: "hostinnetgroup(${1:netgroup})"
+  "CFEngine: hostrange":
+    prefix: "hostrange"
+    body: "hostrange(${1:prefix}, ${2:range})"
+  "CFEngine: hostsseen":
+    prefix: "hostsseen"
+    body: "hostsseen(${1:horizon}, ${2:seen}, ${3:field})"
+  "CFEngine: hostswithclass":
+    prefix: "hostswithclass"
+    body: "hostswithclass(${1:class}, ${2:field})"
+  "CFEngine: hubknowledge":
+    prefix: "hubknowledge"
+    body: "hubknowledge(${1:id})"
+  "CFEngine: ifelse":
+    prefix: "ifelse"
+    body: "ifelse(${1:...})"
+  "CFEngine: intersection":
+    prefix: "intersection"
+    body: "intersection(${1:list1}, ${2:list2})"
+  "CFEngine: ip2host":
+    prefix: "ip2host"
+    body: "ip2host(${1:ip})"
+  "CFEngine: iprange":
+    prefix: "iprange"
+    body: "iprange(${1:range})"
+  "CFEngine: irange":
+    prefix: "irange"
+    body: "irange(${1:arg1}, ${2:arg2})"
+  "CFEngine: isdir":
+    prefix: "isdir"
+    body: "isdir(${1:filename})"
+  "CFEngine: isexecutable":
+    prefix: "isexecutable"
+    body: "isexecutable(${1:filename})"
+  "CFEngine: isgreaterthan":
+    prefix: "isgreaterthan"
+    body: "isgreaterthan(${1:value1}, ${2:value2})"
+  "CFEngine: islessthan":
+    prefix: "islessthan"
+    body: "islessthan(${1:value1}, ${2:value2})"
+  "CFEngine: islink":
+    prefix: "islink"
+    body: "islink(${1:filename})"
+  "CFEngine: isnewerthan":
+    prefix: "isnewerthan"
+    body: "isnewerthan(${1:newer}, ${2:older})"
+  "CFEngine: isplain":
+    prefix: "isplain"
+    body: "isplain(${1:filename})"
+  "CFEngine: isvariable":
+    prefix: "isvariable"
+    body: "isvariable(${1:var})"
+  "CFEngine: join":
+    prefix: "join"
+    body: "join(${1:glue}, ${2:list})"
+  "CFEngine: lastnode":
+    prefix: "lastnode"
+    body: "lastnode(${1:string}, ${2:separator})"
+  "CFEngine: laterthan":
+    prefix: "laterthan"
+    body: "laterthan(${1:year}, ${2:month}, ${3:day}, ${4:hour}, ${5:minute}, ${6:second})"
+  "CFEngine: ldaparray":
+    prefix: "ldaparray"
+    body: "ldaparray(${1:array}, ${2:uri}, ${3:dn}, ${4:filter}, ${5:scope}, ${6:security})"
+  "CFEngine: ldaplist":
+    prefix: "ldaplist"
+    body: "ldaplist(${1:uri}, ${2:dn}, ${3:filter}, ${4:record}, ${5:scope}, ${6:security})"
+  "CFEngine: ldapvalue":
+    prefix: "ldapvalue"
+    body: "ldapvalue(${1:uri}, ${2:dn}, ${3:filter}, ${4:record}, ${5:scope}, ${6:security})"
+  "CFEngine: length":
+    prefix: "length"
+    body: "length(${1:list})"
+  "CFEngine: lsdir":
+    prefix: "lsdir"
+    body: "lsdir(${1:path}, ${2:regex}, ${3:include_base})"
+  "CFEngine: makerule":
+    prefix: "makerule"
+    body: "makerule(${1:target}, ${2:sources})"
+  "CFEngine: maparray":
+    prefix: "maparray"
+    body: "maparray(${1:pattern}, ${2:array})"
+  "CFEngine: maplist":
+    prefix: "maplist"
+    body: "maplist(${1:pattern}, ${2:list})"
+  "CFEngine: max":
+    prefix: "max"
+    body: "max(${1:list}, ${2:sortmode})"
+  "CFEngine: mean":
+    prefix: "mean"
+    body: "mean(${1:list})"
+  "CFEngine: mergedata":
+    prefix: "mergedata"
+    body: "mergedata(${1:one}, ${2:two}, ${3:etc})"
+  "CFEngine: min":
+    prefix: "min"
+    body: "min(${1:list}, ${2:sortmode})"
+  "CFEngine: none":
+    prefix: "none"
+    body: "none(${1:regex}, ${2:list})"
+  "CFEngine: not":
+    prefix: "not"
+    body: "not(${1:expression})"
+  "CFEngine: now":
+    prefix: "now"
+    body: "now(${1:})"
+  "CFEngine: nth":
+    prefix: "nth"
+    body: "nth(${1:list_or_container}, ${2:position_or_key})"
+  "CFEngine: on":
+    prefix: "on"
+    body: "on(${1:year}, ${2:month}, ${3:day}, ${4:hour}, ${5:minute}, ${6:second})"
+  "CFEngine: or":
+    prefix: "or"
+    body: "or(${1:...})"
+  "CFEngine: packagesmatching":
+    prefix: "packagesmatching"
+    body: "packagesmatching(${1:package_regex}, ${2:version_regex}, ${3:arch_regex}, ${4:method_regex})"
+  "CFEngine: packageupdatesmatching":
+    prefix: "packageupdatesmatching"
+    body: "packageupdatesmatching(${1:package_regex}, ${2:version_regex}, ${3:arch_regex}, ${4:method_regex})"
+  "CFEngine: parseintarray":
+    prefix: "parseintarray"
+    body: "parseintarray(${1:array}, ${2:input}, ${3:comment}, ${4:split}, ${5:maxentries}, ${6:maxbytes})"
+  "CFEngine: parsejson":
+    prefix: "parsejson"
+    body: "parsejson(${1:json_data})"
+  "CFEngine: parserealarray":
+    prefix: "parserealarray"
+    body: "parserealarray(${1:array}, ${2:input}, ${3:comment}, ${4:split}, ${5:maxentries}, ${6:maxbytes})"
+  "CFEngine: parsestringarray":
+    prefix: "parsestringarray"
+    body: "parsestringarray(${1:array}, ${2:input}, ${3:comment}, ${4:split}, ${5:maxentries}, ${6:maxbytes})"
+  "CFEngine: parsestringarrayidx":
+    prefix: "parsestringarrayidx"
+    body: "parsestringarrayidx(${1:array}, ${2:input}, ${3:comment}, ${4:split}, ${5:maxentries}, ${6:maxbytes})"
+  "CFEngine: peerleader":
+    prefix: "peerleader"
+    body: "peerleader(${1:filename}, ${2:regex}, ${3:groupsize})"
+  "CFEngine: peerleaders":
+    prefix: "peerleaders"
+    body: "peerleaders(${1:filename}, ${2:regex}, ${3:groupsize})"
+  "CFEngine: peers":
+    prefix: "peers"
+    body: "peers(${1:filename}, ${2:regex}, ${3:groupsize})"
+  "CFEngine: product":
+    prefix: "product"
+    body: "product(${1:list})"
+  "CFEngine: randomint":
+    prefix: "randomint"
+    body: "randomint(${1:lower}, ${2:upper})"
+  "CFEngine: readfile":
+    prefix: "readfile"
+    body: "readfile(${1:filename}, ${2:maxbytes})"
+  "CFEngine: readintarray":
+    prefix: "readintarray"
+    body: "readintarray(${1:array}, ${2:filename}, ${3:comment}, ${4:split}, ${5:maxentries}, ${6:maxbytes})"
+  "CFEngine: readintlist":
+    prefix: "readintlist"
+    body: "readintlist(${1:filename}, ${2:comment}, ${3:split}, ${4:maxentries}, ${5:maxbytes})"
+  "CFEngine: readjson":
+    prefix: "readjson"
+    body: "readjson(${1:filename}, ${2:maxbytes})"
+  "CFEngine: readrealarray":
+    prefix: "readrealarray"
+    body: "readrealarray(${1:array}, ${2:filename}, ${3:comment}, ${4:split}, ${5:maxentries}, ${6:maxbytes})"
+  "CFEngine: readreallist":
+    prefix: "readreallist"
+    body: "readreallist(${1:filename}, ${2:comment}, ${3:split}, ${4:maxentries}, ${5:maxbytes})"
+  "CFEngine: readstringarray":
+    prefix: "readstringarray"
+    body: "readstringarray(${1:array}, ${2:filename}, ${3:comment}, ${4:split}, ${5:maxentries}, ${6:maxbytes})"
+  "CFEngine: readstringarrayidx":
+    prefix: "readstringarrayidx"
+    body: "readstringarrayidx(${1:array}, ${2:filename}, ${3:comment}, ${4:split}, ${5:maxentries}, ${6:maxbytes})"
+  "CFEngine: readstringlist":
+    prefix: "readstringlist"
+    body: "readstringlist(${1:filename}, ${2:comment}, ${3:split}, ${4:maxentries}, ${5:maxbytes})"
+  "CFEngine: readtcp":
+    prefix: "readtcp"
+    body: "readtcp(${1:hostnameip}, ${2:port}, ${3:sendstring}, ${4:maxbytes})"
+  "CFEngine: regarray":
+    prefix: "regarray"
+    body: "regarray(${1:array}, ${2:regex})"
+  "CFEngine: regcmp":
+    prefix: "regcmp"
+    body: "regcmp(${1:regex}, ${2:string})"
+  "CFEngine: regextract":
+    prefix: "regextract"
+    body: "regextract(${1:regex}, ${2:string}, ${3:backref})"
+  "CFEngine: registryvalue":
+    prefix: "registryvalue"
+    body: "registryvalue(${1:key}, ${2:valueid})"
+  "CFEngine: regldap":
+    prefix: "regldap"
+    body: "regldap(${1:uri}, ${2:dn}, ${3:filter}, ${4:record}, ${5:scope}, ${6:regex}, ${7:security})"
+  "CFEngine: regline":
+    prefix: "regline"
+    body: "regline(${1:regex}, ${2:filename})"
+  "CFEngine: reglist":
+    prefix: "reglist"
+    body: "reglist(${1:list}, ${2:regex})"
+  "CFEngine: remoteclassesmatching":
+    prefix: "remoteclassesmatching"
+    body: "remoteclassesmatching(${1:regex}, ${2:server}, ${3:encrypt}, ${4:prefix})"
+  "CFEngine: remotescalar":
+    prefix: "remotescalar"
+    body: "remotescalar(${1:id}, ${2:server}, ${3:encrypt})"
+  "CFEngine: returnszero":
+    prefix: "returnszero"
+    body: "returnszero(${1:command}, ${2:shell})"
+  "CFEngine: reverse":
+    prefix: "reverse"
+    body: "reverse(${1:list})"
+  "CFEngine: rrange":
+    prefix: "rrange"
+    body: "rrange(${1:arg1}, ${2:arg2})"
+  "CFEngine: selectservers":
+    prefix: "selectservers"
+    body: "selectservers(${1:hostlist}, ${2:port}, ${3:query}, ${4:regex}, ${5:maxbytes}, ${6:array})"
+  "CFEngine: shuffle":
+    prefix: "shuffle"
+    body: "shuffle(${1:list}, ${2:seed})"
+  "CFEngine: some":
+    prefix: "some"
+    body: "some(${1:regex}, ${2:list})"
+  "CFEngine: sort":
+    prefix: "sort"
+    body: "sort(${1:list}, ${2:mode})"
+  "CFEngine: splayclass":
+    prefix: "splayclass"
+    body: "splayclass(${1:input}, ${2:policy})"
+  "CFEngine: splitstring":
+    prefix: "splitstring"
+    body: "splitstring(${1:string}, ${2:regex}, ${3:maxent})"
+  "CFEngine: storejson":
+    prefix: "storejson"
+    body: "storejson(${1:data_container})"
+  "CFEngine: strcmp":
+    prefix: "strcmp"
+    body: "strcmp(${1:string1}, ${2:string2})"
+  "CFEngine: strftime":
+    prefix: "strftime"
+    body: "strftime(${1:mode}, ${2:template}, ${3:time})"
+  "CFEngine: string_downcase":
+    prefix: "string_downcase"
+    body: "string_downcase(${1:data})"
+  "CFEngine: string_head":
+    prefix: "string_head"
+    body: "string_head(${1:data}, ${2:max})"
+  "CFEngine: string_length":
+    prefix: "string_length"
+    body: "string_length(${1:data})"
+  "CFEngine: string_reverse":
+    prefix: "string_reverse"
+    body: "string_reverse(${1:data})"
+  "CFEngine: string_split":
+    prefix: "string_split"
+    body: "string_split(${1:string}, ${2:regex}, ${3:maxent})"
+  "CFEngine: string_tail":
+    prefix: "string_tail"
+    body: "string_tail(${1:data}, ${2:max})"
+  "CFEngine: string_upcase":
+    prefix: "string_upcase"
+    body: "string_upcase(${1:data})"
+  "CFEngine: sublist":
+    prefix: "sublist"
+    body: "sublist(${1:list}, ${2:head_or_tail}, ${3:max_elements})"
+  "CFEngine: sum":
+    prefix: "sum"
+    body: "sum(${1:list})"
+  "CFEngine: translatepath":
+    prefix: "translatepath"
+    body: "translatepath(${1:path})"
+  "CFEngine: unique":
+    prefix: "unique"
+    body: "unique(${1:list})"
+  "CFEngine: usemodule":
+    prefix: "usemodule"
+    body: "usemodule(${1:module}, ${2:args})"
+  "CFEngine: userexists":
+    prefix: "userexists"
+    body: "userexists(${1:user})"
+  "CFEngine: variablesmatching":
+    prefix: "variablesmatching"
+    body: "variablesmatching(${1:name}, ${2:tag1}, ${3:tag2}, ${4:...})"
+  "CFEngine: variance":
+    prefix: "variance"
+    body: "variance(${1:list})"
+  "data variable":
+    prefix: "data"
+    body: '''
+      
+      "${1:varname}"      data => { "${2:value1}" };
+      
+    '''
+  "ilist variable":
+    prefix: "ilist"
+    body: '''
+      
+      "${1:varname}"      ilist => { "${2:value1}" };
+      
+    '''
+  "int variable":
+    prefix: "int"
+    body: '''
+      
+      "${1:varname}"      int => { "${2:value1}" };
+      
+    '''
+  "real variable":
+    prefix: "real"
+    body: '''
+      
+      "${1:varname}"      real => { "${2:value1}" };
+      
+    '''
+  "rlist variable":
+    prefix: "rlist"
+    body: '''
+      
+      "${1:varname}"      rlist => { "${2:value1}" };
+      
+    '''
+  "slist variable":
+    prefix: "slist"
+    body: '''
+      
+      "${1:varname}"      slist => { "${2:value1}" };
+      
+    '''
+  "string variable":
+    prefix: "string"
+    body: '''
+      
+      "${1:varname}"      string => "${2:value}";
+      
+    '''
