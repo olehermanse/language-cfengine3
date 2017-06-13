@@ -1,14 +1,18 @@
 bundleUUID: "511ffa1d-e72d-4074-a299-a8a648e82ec3"
 comment: '''
-  
+
       todo:
           list comprehension / generator comprehension scope.
-  
-      
+
+
 '''
 fileTypes: [
   "cf"
   "cf3"
+  "srv"
+  "cf.sub"
+  "cf.master"
+  "cf.namespaced.sub"
 ]
 firstLineMatch: "^#!/.*\\bcfengine[0-9.-]*\\b"
 foldingStartMarker: "^\\s*(body|bundle)\\s*([.a-zA-Z0-9_ <]+)\\s*(\\((.*)\\))?\\s*:|\\{\\s*$|\\(\\s*$|\\[\\s*$|^\\s*\"\"\"(?=.)(?!.*\"\"\")"
