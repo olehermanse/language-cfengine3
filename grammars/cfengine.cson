@@ -622,7 +622,7 @@ repository:
   builtin_functions:
     match: '''
       (?x)\\b(
-                      all|linux|debian|any|cfengine|vars|users|defaults|roles|access|files|services|packages|processes|commands|guest_environments|measurements|databases|reports|acl|alerts|binservers|broadcast|control|main|classes|copy|defaultroute|disks|directories|disable|editfiles|files|filters|groups|homeservers|ignore|import|interfaces|links|mailserver|methods|miscmounts|mountables|processes|packages|rename|required|resolve|shellcommands|tidy|unmount|redhat|ubuntu|gentoo|storage
+                      all|linux|debian|any|cfengine|meta|vars|users|defaults|roles|access|files|services|packages|processes|commands|guest_environments|measurements|databases|reports|acl|alerts|binservers|broadcast|control|main|classes|copy|defaultroute|disks|directories|disable|editfiles|files|filters|groups|homeservers|ignore|import|interfaces|links|mailserver|methods|miscmounts|mountables|processes|packages|rename|required|resolve|shellcommands|tidy|unmount|redhat|ubuntu|gentoo|storage
                   )\\b
     '''
     name: "support.function.builtin.cfengine"
