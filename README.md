@@ -1,12 +1,17 @@
-# language-cfengine3 package
+# Syntax highlighting for CFEngine 3
 
-Syntax highlighting for CFEngine3.
 Converted from [CFEngine language highlighting for Sublime Text](https://github.com/lastops/sublime-cfengine).
 
-Changelog:
+## Changelog
 
-0.2.0
-Added support for additional CFEngine core files
+### 0.3.5
 
-0.1.0
-Initial version
+* Added `meta` promise type to builtin keywords
+
+### 0.3.0
+
+* Added file extensions used in CFEngine Core
+
+### 0.1.0
+
+* Initial version
